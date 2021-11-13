@@ -7,6 +7,7 @@ if(process.env.NODE_ENV=="production"){
     config.basePath="https://tollgator-backend.herokuapp.com/rest";
 }
 
+
 export let USER_AUTH_TOKEN = localStorage.getItem("tollgator-user-auth-token");
 
 export let AppCourseAPI: CourseApi;
