@@ -1,25 +1,29 @@
 
 import { action, makeAutoObservable, makeObservable, observable, runInAction } from "mobx"
-import { Course, DefaultApi, CourseApi, User, UserApi } from "../api/api"
+import { User, UserApi } from "../api/api"
 import firebase from "firebase/app"
+import { signInWithEmailAndPassword, getAuth, User as FirebaseUser } from "firebase/auth"
 import { createContext, useContext } from "react";
-import { AppUserAPI, setUserAuthToken } from "../configure/global_variables";
+import { AppUserAPI, setUserAuthToken, } from "../configure/global_variables";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const defaultUser = new UserApi();
 
 class UserManager {
+
     user: User | null = null;
-    fbUser: firebase.User | null = null;
+    fbUser: FirebaseUser | null = null;
     userAuthToken: string | null = null;
-    canSignin: boolean = false;
+    canSignin: boolean = true;
 
     constructor() {
         makeAutoObservable(this);
     }
 
     load = async () => {
-        if (localStorage.getItem("tollgator-user-auth-token") != null) {
-            this.loadToken(localStorage.getItem("tollgator-user-auth-token") ?? "");
+        if (localStorage.getItem("fyc-app-auth-token") != null) {
+            this.loadToken(localStorage.getItem("fyc-app-auth-token") ?? "");
             return
         }
         // allow signin
@@ -29,12 +33,14 @@ class UserManager {
     }
 
     loadToken(token: string) {
-        localStorage.setItem("tollgator-user-auth-token", token);
-        runInAction(() => {
-            this.userAuthToken = token;
-        })
+        console.log("Successfully loaded")
+        localStorage.setItem("fyc-app-auth-token", token);
         setUserAuthToken(token);
         this.loadUserProfile();
+        runInAction(() => {
+            this.userAuthToken = token;
+            this.canSignin= false;
+        })
     }
 
     loadUserProfile = async () => {
@@ -52,8 +58,11 @@ class UserManager {
     }
 
     checkSignedInUser = async () => {
+        console.log("before checking user")
         try {
-            let user = firebase.auth().currentUser;
+            let myAuth = getAuth();
+            let user = myAuth.currentUser;
+
             console.log(user, "-- current");
             if (user == null) {
                 runInAction(() => {
@@ -61,16 +70,16 @@ class UserManager {
                 })
                 return;
             }
-
             // get id token to retrieve new token from backend
             let idToken = await user.getIdToken();
             let res = await defaultUser.getUserAuthToken({ token: idToken })
             // retrieve auth token from backend
             if (res.status == 200 && res.data.token != undefined) {
                 this.loadToken(res.data.token);
+                console.log("token goes here-", idToken)
             }
-        } catch (e) {
-            console.log(e);
+        } catch (e: any) {
+            console.log(e.message);
         }
     }
 
@@ -78,11 +87,13 @@ class UserManager {
 
     }
 
-    siginInWithGoogle = async () => {
-        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-        var provider = new firebase.auth.GoogleAuthProvider();
-        let response = await firebase.auth().signInWithPopup(provider);
-        this.checkSignedInUser();
+    siginInWithGoogle = async (email: string, password: string) => {
+        let response = await signInWithEmailAndPassword(getAuth(), email, password).then(v => {
+            this.checkSignedInUser();
+        }).catch(v => {
+            toast(v.message, {});
+        });
+
     }
 
 }

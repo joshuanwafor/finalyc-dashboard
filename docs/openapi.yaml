@@ -1,0 +1,417 @@
+openapi: 3.0.0
+info:
+  title: fyc-api
+  version: '1.0'
+  description: Full api description goes heree
+  contact:
+    name: Joshua Nwafor
+    email: joshuanwafor01@gmail.com
+servers:
+  - url: 'http://localhost:8000/rest'
+    description: Joshua Nwafor
+paths:
+  /user:
+    get:
+      summary: Your GET endpoint
+      description: Description
+      tags:
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          $ref: '#/components/responses/GenericResponse'
+      operationId: get-user
+    put:
+      description: Description
+      summary: ''
+      operationId: updateUser
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/GenericResponse'
+        '401':
+          $ref: '#/components/responses/GenericResponse'
+        '404':
+          $ref: '#/components/responses/GenericResponse'
+        '500':
+          $ref: '#/components/responses/GenericResponse'
+  /user/bank-account:
+    post:
+      summary: postInstructorBankAccount
+      operationId: postInstructorBankAccount
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Description
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                business_name:
+                  type: string
+                settlement_bank:
+                  type: string
+                account_number:
+                  type: string
+                percentage_charge:
+                  type: string
+                primary_contact_email:
+                  type: string
+                primary_contact_name:
+                  type: string
+                primary_contact_phone:
+                  type: string
+      tags:
+        - user
+  /user/auth:
+    post:
+      summary: getUserAuthToken
+      operationId: getUserAuthToken
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          $ref: '#/components/responses/GenericResponse'
+        '500':
+          $ref: '#/components/responses/GenericResponse'
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      description: ''
+  '/users/{userId}':
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: get User Info by User ID
+      tags:
+        - user
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                example-1:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+        '400':
+          $ref: '#/components/responses/GenericResponse'
+        '500':
+          $ref: '#/components/responses/GenericResponse'
+      operationId: getUserByID
+      description: Retrieve the information of the user with the matching user ID.
+  /users:
+    get:
+      summary: getUsers
+      operationId: getUsers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/GenericResponse'
+        '500':
+          $ref: '#/components/responses/GenericResponse'
+      tags:
+        - user
+  /projects:
+    get:
+      summary: getProjects
+      tags:
+        - project
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/GenericResponse'
+        '500':
+          $ref: '#/components/responses/GenericResponse'
+      operationId: getProjects
+      parameters: []
+      description: get all projects for user
+    post:
+      summary: postCourse
+      operationId: postProject
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+      description: publish project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      tags:
+        - project
+  '/projects/{project}':
+    parameters:
+      - schema:
+          type: string
+        name: project
+        in: path
+        required: true
+    get:
+      summary: get project by id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/GenericResponse'
+        '500':
+          $ref: '#/components/responses/GenericResponse'
+      operationId: getProjectByID
+      description: get project by id
+      tags:
+        - project
+    put:
+      summary: ''
+      operationId: put-projects-project
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+        - project
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+  /transaction/initialize:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reference:
+                    type: string
+                  access_code:
+                    type: string
+                  authorization_url:
+                    type: string
+      operationId: get-transaction-initialize
+      description: ''
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: authorization
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        email:
+          type: string
+        fullname:
+          type: string
+          format: date
+          example: '1997-10-31'
+        verified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+        created_at:
+          type: string
+          format: date
+          description: The date that the user was created.
+        updated_at:
+          type: string
+          format: date
+        fuid:
+          type: string
+        activated:
+          type: boolean
+        bio:
+          type: string
+        photo:
+          type: string
+        paystack_bank_integration:
+          type: object
+          properties:
+            business_name:
+              type: string
+            account_number:
+              type: string
+            percentage_charge:
+              type: number
+            settlement_bank:
+              type: number
+            currency:
+              type: string
+            bank:
+              type: string
+            integration:
+              type: string
+            domain:
+              type: string
+            subaccount_code:
+              type: string
+            is_verified:
+              type: boolean
+            settlement_schedule:
+              type: string
+            active:
+              type: string
+            id:
+              type: string
+            createdAt:
+              type: string
+            updatedAt:
+              type: string
+    Project:
+      title: Project
+      type: object
+      description: ''
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        body:
+          type: string
+        status:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+        creator_id:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        resource_url:
+          type: string
+        pages_count:
+          type: number
+        chapters_count:
+          type: string
+        has_questionnaire:
+          type: string
+        has_abstract:
+          type: string
+        other_props:
+          type: string
+        downloads_count:
+          type: string
+        price:
+          type: number
+        audience_type:
+          type: string
+  responses:
+    GenericResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              status:
+                type: string
+              data:
+                type: string
+  requestBodies: {}
+  parameters: {}
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: ticket
+  - name: taxonomy
+  - name: project
+  - name: user

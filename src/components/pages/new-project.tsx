@@ -1,8 +1,19 @@
 
 import { ListAreaTemplate } from "../templates/listareatemplate"
 import { Button, Col, Form, Row } from "react-bootstrap"
+import { Project } from "../../api"
+import React from "react"
+import { useHistory } from "react-router"
+import { useProjectStore } from "../../store/projects"
 
 export const NewProjectScreen = () => {
+
+    let { add } = useProjectStore()
+
+    let history = useHistory()
+    let [project, updateProject] = React.useState<Project>({});
+
+
     return <ListAreaTemplate title="New project" actions={<div><Button>Submit</Button></div>}>
         <div className="p-3">
             <Form>
@@ -11,41 +22,55 @@ export const NewProjectScreen = () => {
                         <h2 className="mb-2">Basic info</h2>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Project title</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" size="lg" />
+                            <Form.Control type="email" placeholder="Title" size="lg"
+                                value={project.title}
+                                onChange={(event) => {
+                                    updateProject({
+                                        ...project,
+                                        title: event.target.value
+                                    })
+                                }}
+                            />
                             <Form.Text className="text-muted" >
-                                We'll never share your email with anyone else.
+                                Project title
                             </Form.Text>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Project caption</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" size="lg" />
+                            <Form.Label>Project descripion</Form.Label>
+                            <Form.Control type="email" placeholder="Description" size="lg"
+                                value={project.description}
+                                onChange={(event) => {
+                                    updateProject({
+                                        ...project,
+                                        description: event.target.value
+                                    })
+                                }} />
                             <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Full Description</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" size="lg" />
-                            <Form.Text className="text-muted" >
-                                We'll never share your email with anyone else.
+                                Project description
                             </Form.Text>
                         </Form.Group>
 
                         <h2 className="mt-2">Classification</h2>
 
                         <Form.Group className="mb-3" >
-                            <Form.Label>Institution</Form.Label>
-                            <Form.Select aria-label="Default select example" size="lg">
+                            <Form.Label>Institution  type</Form.Label>
+                            <Form.Select aria-label="Default select example" size="lg"
+                                value={project.audience_type}
+                                onChange={(event) => {
+                                    updateProject({
+                                        ...project,
+                                        audience_type: event.target.value
+                                    })
+                                }}>
                                 <option>Institution type</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option value="HND">HND</option>
+                                <option value="BSC">BSC</option>
+                                <option value="MSC">MSC</option>
                             </Form.Select>
                         </Form.Group>
 
-                        <Form.Group className="mb-3" >
+                        {/* <Form.Group className="mb-3" >
                             <Form.Label>Programme</Form.Label>
                             <Form.Select aria-label="Default select example" size="lg">
                                 <option>Institution type</option>
@@ -53,36 +78,15 @@ export const NewProjectScreen = () => {
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </Form.Select>
-                        </Form.Group>
+                        </Form.Group> */}
 
+                        <Button className="btn-lg w-100" onClick={() => {
+                            add(project).then(v => {
+                                console.log(v)
+                                history.push("/projects/" + v?.id);
+                            });
 
-                        <h2 className="mt-2">Project work</h2>
-
-                        
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Summary of chapter 1</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" size="lg" />
-                            <Form.Text className="text-muted" >
-                                We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-
-                        
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Full project work</Form.Label>
-                            <Form.Control type="file" placeholder="Project Work" size="lg" />
-                            <Form.Text className="text-muted" >
-                                We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Purchase amount</Form.Label>
-                            <Form.Control type="number" placeholder="Project Work" size="lg" />
-                            <Form.Text className="text-muted" >
-                                We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-                        <Button className="btn-lg w-100">Submit </Button>
+                        }}>Submit </Button>
                     </Col>
                 </Row>
             </Form>
