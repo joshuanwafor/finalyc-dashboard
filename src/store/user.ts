@@ -21,20 +21,18 @@ class UserManager {
         makeAutoObservable(this);
     }
 
-    load = async () => {
-        if (localStorage.getItem("fyc-app-auth-token") != null) {
-            this.loadToken(localStorage.getItem("fyc-app-auth-token") ?? "");
-            return
-        }
-        // allow signin
-        runInAction(() => {
-            this.canSignin = true;
-        })
-    }
+    // load = async () => {
+    //     if (localStorage.getItem("fyc-app-auth-token") != null) {
+    //         this.loadToken(localStorage.getItem("fyc-app-auth-token") ?? "");
+    //         return
+    //     }
+    //     // allow signin
+    //     runInAction(() => {
+    //         this.canSignin = true;
+    //     })
+    // }
 
     loadToken(token: string) {
-        alert('loading token')
-        localStorage.setItem("fyc-app-auth-token", token);
         setUserAuthToken(token);
         this.loadUserProfile();
         runInAction(() => {
@@ -44,7 +42,7 @@ class UserManager {
     }
 
     loadUserProfile = async () => {
-        console.log("loading profile...")
+        console.log("loading profile...");
         try {
             let user = await AppUserAPI.getUser();
             console.log(user, " goes here");
@@ -101,6 +99,9 @@ class UserManager {
     }
 
     siginInWithGoogle = async (email: string, password: string) => {
+
+        localStorage.clear();
+        
         let response = await signInWithEmailAndPassword(getAuth(), email, password).then(v => {
             this.checkSignedInUser();
         }).catch(v => {

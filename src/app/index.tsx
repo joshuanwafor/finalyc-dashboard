@@ -15,7 +15,7 @@ import { UpdateProjectScreen } from "../components/pages/update-project"
 
 
 export const AppDashboard = observer(() => {
-  let { load, siginInWithGoogle, fbUser, canSignin, checkSignedInUser, userAuthToken } = useUserStore();
+  let {siginInWithGoogle, fbUser, canSignin, checkSignedInUser, userAuthToken } = useUserStore();
 
   let linkStyle = { textDecoration: "none", color: "rgba(230,230,230,.9)" };
 
