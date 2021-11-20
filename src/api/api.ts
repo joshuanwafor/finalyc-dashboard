@@ -50,7 +50,7 @@ export interface InlineObject {
      * @type {string}
      * @memberof InlineObject
      */
-    'percentage_charge'?: string;
+    'percentage_charge'?: number;
     /**
      * 
      * @type {string}

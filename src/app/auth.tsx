@@ -5,10 +5,8 @@ import { useUserStore } from "../store/user";
 
 
 export const AuthScreen: React.FC<{}> = observer(() => {
-
     let [email, setEmail] = React.useState("");
     let [password, setPassword] = React.useState("");
-
     let { siginInWithGoogle } = useUserStore();
 
     return <div>
@@ -18,9 +16,9 @@ export const AuthScreen: React.FC<{}> = observer(() => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#home">Apply</Nav.Link>
-                        <Nav.Link href="#link">Terms & Conditions</Nav.Link>
-                        <Nav.Link href="#link">Marketplace</Nav.Link>
+                        <Nav.Link href="https://wa.me/2349017283616?text= Hello Joshua, i'll love to register on mypapers.shop as a partner... ">Apply</Nav.Link>
+                        <Nav.Link href="https://mypapers.shop/terms-and-conditions">Terms & Conditions</Nav.Link>
+                        <Nav.Link href="https://mypapers.shop">Marketplace</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -65,8 +63,8 @@ export const AuthScreen: React.FC<{}> = observer(() => {
 
 
                     <Alert className="mt-3">
-                        Don't have an account!!! No worries, connect with us as a partner.{" "}
-                        <Alert.Link href="#">Connect</Alert.Link>
+                        Don't have an account!!! No worries. Lets setup an account for you.{" "}
+                        <Alert.Link href="https://wa.me/2349017283616?text= Hello Joshua, i'll love to register on mypapers.shop as a partner... ">Connect</Alert.Link>
                     </Alert>
 
                 </Col>
