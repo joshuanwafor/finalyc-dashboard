@@ -1,8 +1,17 @@
 
 import { ListAreaTemplate } from "../templates/listareatemplate"
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
+import { useUserStore } from "../../store/user"
+import { observer } from "mobx-react-lite";
+import { SetupAccount } from "./set-up-account";
 
-export const ProfileScreen = () => {
+export const ProfileScreen = observer(() => {
+    let userStore = useUserStore();
+    if (userStore.user == undefined) {
+        return <div></div>;
+    }
+
+    let { fullname, email, phone, paystack_bank_integration, bio } = userStore.user;
     return <div className="p-0">
         <Container>
             <Row className="jusity-content-center">
@@ -15,40 +24,47 @@ export const ProfileScreen = () => {
                             <div>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Full name</Form.Label>
-                                    <Form.Control type="text" placeholder="Fullname" />
-                                    <Form.Text className="text-muted" >
-                                        We'll never share your email with anyone else.
-                                    </Form.Text>
+                                    <Form.Control type="text" placeholder="Fullname"
+                                        value={fullname}
+                                        onChange={(event) => {
+                                            userStore.updateProp("fullname", event.target.value)
+                                        }} />
                                 </Form.Group>
 
                                 <Row>
                                     <Col md={{ span: "6" }}>
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>Email</Form.Label>
-                                            <Form.Control type="text" placeholder="Fullname" />
-                                            <Form.Text className="text-muted" >
-                                                We'll never share your email with anyone else.
-                                            </Form.Text>
+                                            <Form.Control type="text" placeholder="Email"
+                                                value={email} disabled />
                                         </Form.Group>
                                     </Col>
                                     <Col md={{ span: "6" }}>
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>Phone</Form.Label>
-                                            <Form.Control type="text" placeholder="Phone" />
-                                            <Form.Text className="text-muted" >
-                                                We'll never share your email with anyone else.
-                                            </Form.Text>
+                                            <Form.Control type="text" placeholder="Phone"
+                                                value={phone}
+                                                onChange={(event) => {
+                                                    userStore.updateProp("phone", event.target.value)
+                                                }} />
+
                                         </Form.Group>
                                     </Col>
                                 </Row>
 
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Bio</Form.Label>
-                                    <Form.Control type="text" placeholder="Bio" />
-                                    <Form.Text className="text-muted" >
-                                        We'll never share your email with anyone else.
-                                    </Form.Text>
+                                    <Form.Control type="text" placeholder="Bio"
+                                        value={bio} onChange={(event) => {
+                                            // @ts-ignore
+                                            userStore.updateProp("bio", event.target.value)
+                                        }} />
+
                                 </Form.Group>
+
+                                <Button onClick={() => {
+                                    userStore.updateUser()
+                                }}>Save</Button>
 
                             </div>
                         </Card.Body>
@@ -61,7 +77,7 @@ export const ProfileScreen = () => {
                             <div>Bank Info</div>
                         </Card.Header>
                         <Card.Body>
-
+                            <SetupAccount />
                         </Card.Body>
                     </Card>
                 </Col>
@@ -69,4 +85,4 @@ export const ProfileScreen = () => {
         </Container>
     </div>
 
-}
+})

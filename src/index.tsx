@@ -5,23 +5,25 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeApp } from 'firebase/app';
 
-const firebaseConfig = {
+export const firebaseConfig = {
 
-  apiKey: "AIzaSyCTHsmXm3cymEBtkjdsiHavyfvVHazX-kQ",
+  apiKey: "AIzaSyAnQiA8LxAJ7gUPUSc9ePkw8mD82m-46tE",
 
-  authDomain: "finalyc-007.firebaseapp.com",
+  authDomain: "finally-xyz.firebaseapp.com",
 
-  projectId: "finalyc-007",
+  projectId: "finally-xyz",
 
-  storageBucket: "finalyc-007.appspot.com",
+  storageBucket: "finally-xyz.appspot.com",
 
-  messagingSenderId: "909371856297",
+  messagingSenderId: "153597144819",
 
-  appId: "1:909371856297:web:c16750a14d64d760fca0b8",
+  appId: "1:153597144819:web:11a9c6faf4152658219186",
 
-  measurementId: "G-VBN9FGK1CG"
+  measurementId: "G-XP2YB8X11M"
 
 };
+
+
 
 
 const app = initializeApp(firebaseConfig);

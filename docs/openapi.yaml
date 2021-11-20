@@ -10,6 +10,22 @@ servers:
   - url: 'http://localhost:8000/rest'
     description: Joshua Nwafor
 paths:
+  /user/my-sales:
+    get:
+      summary: getMySales
+      tags:
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+      operationId: get-user-sales
+      description: ''
   /user:
     get:
       summary: Your GET endpoint
@@ -32,8 +48,8 @@ paths:
       operationId: get-user
     put:
       description: Description
-      summary: ''
-      operationId: updateUser
+      summary: update-user
+      operationId: update-user
       responses:
         '200':
           description: OK
@@ -45,6 +61,13 @@ paths:
           $ref: '#/components/responses/GenericResponse'
         '500':
           $ref: '#/components/responses/GenericResponse'
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
   /user/bank-account:
     post:
       summary: postInstructorBankAccount
@@ -189,7 +212,6 @@ paths:
         '500':
           $ref: '#/components/responses/GenericResponse'
       operationId: getProjects
-      parameters: []
       description: get all projects for user
     post:
       summary: postCourse
@@ -273,6 +295,39 @@ paths:
                     type: string
       operationId: get-transaction-initialize
       description: ''
+  /taxonomies:
+    get:
+      summary: Get taxonomies
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    parent_id:
+                      type: string
+                    type:
+                      type: string
+                    _id:
+                      type: string
+              examples:
+                example-1:
+                  value:
+                    - name: string
+                      description: string
+                      parent_id: string
+                      type: string
+                      _id: string
+      operationId: get-taxonomies
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -345,6 +400,8 @@ components:
               type: string
             updatedAt:
               type: string
+        phone:
+          type: string
     Project:
       title: Project
       type: object
@@ -379,11 +436,11 @@ components:
         pages_count:
           type: number
         chapters_count:
-          type: string
+          type: number
         has_questionnaire:
-          type: string
+          type: boolean
         has_abstract:
-          type: string
+          type: boolean
         other_props:
           type: string
         downloads_count:
@@ -391,6 +448,34 @@ components:
         price:
           type: number
         audience_type:
+          type: string
+    Order:
+      title: Order
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        buyer_email:
+          type: string
+        buyer_phone:
+          type: string
+        project_id:
+          type: string
+        ' merchant_id':
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        transaction_ref:
+          type: string
+        ' amount':
+          type: string
+        details:
           type: string
   responses:
     GenericResponse:

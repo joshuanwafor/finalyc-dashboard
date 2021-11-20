@@ -50,11 +50,7 @@ export const AppDashboard = observer(() => {
             <Nav.Item>
               <Link to="/tickets"
                 className="px-2"
-                style={linkStyle}>Tickers</Link></Nav.Item>
-            <Nav.Item>
-              <Link to="/notifications"
-                className="px-2"
-                style={linkStyle}>Notifications</Link></Nav.Item>
+                style={linkStyle}>Tickets</Link></Nav.Item>
           </Nav>
           <div>
             <Link to="/profile">

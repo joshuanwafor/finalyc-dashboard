@@ -111,6 +111,43 @@ export interface InlineResponse200 {
 /**
  * 
  * @export
+ * @interface InlineResponse2001
+ */
+export interface InlineResponse2001 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2001
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2001
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2001
+     */
+    'parent_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2001
+     */
+    'type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2001
+     */
+    '_id'?: string;
+}
+/**
+ * 
+ * @export
  * @interface InlineResponse400
  */
 export interface InlineResponse400 {
@@ -132,6 +169,85 @@ export interface InlineResponse400 {
      * @memberof InlineResponse400
      */
     'data'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface Order
+ */
+export interface Order {
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'created_at'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'updated_at'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'buyer_email'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'buyer_phone'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'project_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    ' merchant_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'status'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'transaction_ref'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    ' amount'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Order
+     */
+    'details'?: string;
 }
 /**
  * 
@@ -213,22 +329,22 @@ export interface Project {
     'pages_count'?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof Project
      */
-    'chapters_count'?: string;
+    'chapters_count'?: number;
     /**
      * 
-     * @type {string}
+     * @type {boolean}
      * @memberof Project
      */
-    'has_questionnaire'?: string;
+    'has_questionnaire'?: boolean;
     /**
      * 
-     * @type {string}
+     * @type {boolean}
      * @memberof Project
      */
-    'has_abstract'?: string;
+    'has_abstract'?: boolean;
     /**
      * 
      * @type {string}
@@ -326,6 +442,12 @@ export interface User {
      * @memberof User
      */
     'paystack_bank_integration'?: UserPaystackBankIntegration;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'phone'?: string;
 }
 /**
  * 
@@ -433,6 +555,39 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
+         * @summary Get taxonomies
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTaxonomies: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/taxonomies`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Your GET endpoint
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -464,38 +619,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * Description
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUser: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/user`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication ApiKeyAuth required
-            await setApiKeyToObject(localVarHeaderParameter, "authorization", configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -508,21 +631,22 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Get taxonomies
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTaxonomies(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse2001>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTaxonomies(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Your GET endpoint
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getTransactionInitialize(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionInitialize(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Description
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateUser(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -537,20 +661,21 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
+         * @summary Get taxonomies
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTaxonomies(options?: any): AxiosPromise<Array<InlineResponse2001>> {
+            return localVarFp.getTaxonomies(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Your GET endpoint
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getTransactionInitialize(options?: any): AxiosPromise<InlineResponse200> {
             return localVarFp.getTransactionInitialize(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Description
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUser(options?: any): AxiosPromise<void> {
-            return localVarFp.updateUser(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -564,6 +689,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
 export class DefaultApi extends BaseAPI {
     /**
      * 
+     * @summary Get taxonomies
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getTaxonomies(options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getTaxonomies(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Your GET endpoint
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -571,16 +707,6 @@ export class DefaultApi extends BaseAPI {
      */
     public getTransactionInitialize(options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getTransactionInitialize(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Description
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public updateUser(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).updateUser(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1014,6 +1140,39 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @summary getMySales
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserSales: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user/my-sales`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary getUsers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1082,6 +1241,43 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Description
+         * @summary update-user
+         * @param {User} [user] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUser: async (user?: User, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "authorization", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(user, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1126,6 +1322,16 @@ export const UserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary getMySales
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserSales(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Order>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserSales(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary getUsers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1143,6 +1349,17 @@ export const UserApiFp = function(configuration?: Configuration) {
          */
         async postInstructorBankAccount(inlineObject?: InlineObject, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.postInstructorBankAccount(inlineObject, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Description
+         * @summary update-user
+         * @param {User} [user] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateUser(user?: User, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(user, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1186,6 +1403,15 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @summary getMySales
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserSales(options?: any): AxiosPromise<Array<Order>> {
+            return localVarFp.getUserSales(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary getUsers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1202,6 +1428,16 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          */
         postInstructorBankAccount(inlineObject?: InlineObject, options?: any): AxiosPromise<User> {
             return localVarFp.postInstructorBankAccount(inlineObject, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Description
+         * @summary update-user
+         * @param {User} [user] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUser(user?: User, options?: any): AxiosPromise<void> {
+            return localVarFp.updateUser(user, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1250,6 +1486,17 @@ export class UserApi extends BaseAPI {
 
     /**
      * 
+     * @summary getMySales
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public getUserSales(options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).getUserSales(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary getUsers
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1269,6 +1516,18 @@ export class UserApi extends BaseAPI {
      */
     public postInstructorBankAccount(inlineObject?: InlineObject, options?: AxiosRequestConfig) {
         return UserApiFp(this.configuration).postInstructorBankAccount(inlineObject, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Description
+     * @summary update-user
+     * @param {User} [user] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public updateUser(user?: User, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).updateUser(user, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

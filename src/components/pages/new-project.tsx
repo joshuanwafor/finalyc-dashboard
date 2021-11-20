@@ -5,8 +5,10 @@ import { Project } from "../../api"
 import React from "react"
 import { useHistory } from "react-router"
 import { useProjectStore } from "../../store/projects"
-
+import toast from "react-hot-toast"
+import { uploadFile } from "../../services/storage"
 export const NewProjectScreen = () => {
+    let [file, updateFile]= React.useState<File| null>(null)
 
     let { add } = useProjectStore()
 
@@ -64,25 +66,41 @@ export const NewProjectScreen = () => {
                                     })
                                 }}>
                                 <option>Institution type</option>
-                                <option value="HND">HND</option>
-                                <option value="BSC">BSC</option>
-                                <option value="MSC">MSC</option>
+                                <option value="hnd">HND</option>
+                                <option value="bsc">BSC</option>
+                                <option value="msc">MSC</option>
                             </Form.Select>
                         </Form.Group>
 
-                        {/* <Form.Group className="mb-3" >
-                            <Form.Label>Programme</Form.Label>
-                            <Form.Select aria-label="Default select example" size="lg">
-                                <option>Institution type</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </Form.Select>
-                        </Form.Group> */}
+                        <Form.Group className="mb-3">
+                            <Form.Label>Package</Form.Label>
+                            <Form.Control type="file" size="lg"
+                            accept=".zip,.rar,.7zip"
+                            id="file-holder"
+                            required
+                                onChange={(event) => {
+                                    const  filelist= window.document.getElementById("file-holder");
+                                    // @ts-ignore
+                                    updateFile(filelist.files[0])
+                                }} />
+                            <Form.Text className="text-muted">
+                                Project description
+                            </Form.Text>
+                        </Form.Group>
 
-                        <Button className="btn-lg w-100" onClick={() => {
+                        <Button className="btn-lg w-100" onClick={async () => {
+                            if(file==null){
+                                toast("Select project package");
+                                return;
+                            }
+
+                            toast("Uploading package....");
+                            let link=await  uploadFile(file);
+                            updateProject({
+                                ...project, 
+                                resource_url: link
+                            })
                             add(project).then(v => {
-                                console.log(v)
                                 history.push("/projects/" + v?.id);
                             });
 

@@ -4,7 +4,7 @@ import { User, UserApi } from "../api/api"
 import firebase from "firebase/app"
 import { signInWithEmailAndPassword, getAuth, User as FirebaseUser } from "firebase/auth"
 import { createContext, useContext } from "react";
-import { AppUserAPI, setUserAuthToken, } from "../configure/global_variables";
+import { AppUserAPI, CUSTOM_API, setUserAuthToken, } from "../configure/global_variables";
 import toast, { Toaster } from 'react-hot-toast';
 
 
@@ -12,7 +12,7 @@ const defaultUser = new UserApi();
 
 class UserManager {
 
-    user: User | null = null;
+    user?: User;
     fbUser: FirebaseUser | null = null;
     userAuthToken: string | null = null;
     canSignin: boolean = true;
@@ -33,13 +33,13 @@ class UserManager {
     }
 
     loadToken(token: string) {
-        console.log("Successfully loaded")
+        alert('loading token')
         localStorage.setItem("fyc-app-auth-token", token);
         setUserAuthToken(token);
         this.loadUserProfile();
         runInAction(() => {
             this.userAuthToken = token;
-            this.canSignin= false;
+            this.canSignin = false;
         })
     }
 
@@ -83,8 +83,21 @@ class UserManager {
         }
     }
 
-    updateUser = async () => {
+    updateProp = (prop: string, value: any) => {
 
+        runInAction(() => {
+            // @ts-ignore
+            this.user[prop] = value
+        })
+    }
+
+    updateUser = async () => {
+        let updateOb = {
+            fullname: this.user?.fullname,
+            bio: this.user?.bio,
+            phone: this.user?.phone
+        }
+        CUSTOM_API.userAPI?.updateUser(updateOb).then(v => { })
     }
 
     siginInWithGoogle = async (email: string, password: string) => {

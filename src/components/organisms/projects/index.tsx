@@ -20,11 +20,11 @@ export const ProjectsComp: React.FC = observer(() => {
                 <div className="h5">Projects</div>
                 <Link to="/create-project"><Button>New</Button></Link>
             </Card.Header>
-            <Card.Body>
+            <Card.Body className="p-0">
                 {items.map(v => {
-                    return <div className="py-3 px-0 border-bottom btn d-block text-start">
-                        <Link to={"/projects/" + v.id}>
-                            <Row className="align-items-center">
+                    return <div className="py-3 px-3 border-bottom btn d-block text-start">
+                        <Link to={"/projects/" + v.id} style={{textDecoration:"none"}}>
+                            <Row className="align-items-center text-decoration-none text-dark">
                                 <Col sm={{ span: "12" }} md={{ span: "8" }} >
                                     <div className="fw-bold">{
                                         v.title

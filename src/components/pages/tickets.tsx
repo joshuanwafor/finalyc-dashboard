@@ -10,12 +10,19 @@ export const TicketsScreen = () => {
         <Container>
             <Row className="jusity-content-center">
                 <Col xs={{ span: "12" }} md={{ span: "8" }} className="mt-2">
-                    <ProjectsComp />
+                    <Card>
+                        <Card.Header>
+                            <Card.Text>Tickets</Card.Text>
+                        </Card.Header>
+                        <Card.Body>
+                            Coming soon...
+                        </Card.Body>
+                    </Card>
                 </Col>
             </Row>
         </Container>
-        </div>
-   
+    </div>
+
 }
 
 function NoProject() {
