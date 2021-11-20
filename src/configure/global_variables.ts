@@ -24,7 +24,7 @@ export let AppUserAPI: UserApi = new UserApi(config);
 
 
 export function setUserAuthToken(token: string) {
-    alert("setting token")
+
     let config: { "apiKey": string, isJsonMime: () => boolean, basePath?: string } = { apiKey: token, isJsonMime: () => true };
 
     if (process.env.NODE_ENV == "production") {
