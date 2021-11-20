@@ -54,10 +54,7 @@ export const AppDashboard = observer(() => {
           </Nav>
           <div>
             <Link to="/profile">
-              <Button variant="success">Profile</Button>
-            </Link>
-            <Link to="/profile">
-              <Button className="btn-dark">Logout</Button>
+              <Button variant="success"><i className="bi bi-person"></i></Button>
             </Link>
           </div>
         </Navbar.Collapse>

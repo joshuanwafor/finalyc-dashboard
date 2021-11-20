@@ -7,8 +7,13 @@ import { useHistory } from "react-router"
 import { useProjectStore } from "../../store/projects"
 import toast from "react-hot-toast"
 import { uploadFile } from "../../services/storage"
+import { UploadToCloudinary } from "../../services/cloudinary"
+
+const uc_pk = "a9fd7aeb96141970bc09";
+
+
 export const NewProjectScreen = () => {
-    let [file, updateFile]= React.useState<File| null>(null)
+    let [file, updateFile] = React.useState<File | null>(null)
 
     let { add } = useProjectStore()
 
@@ -25,6 +30,7 @@ export const NewProjectScreen = () => {
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Project title</Form.Label>
                             <Form.Control type="email" placeholder="Title" size="lg"
+                            required
                                 value={project.title}
                                 onChange={(event) => {
                                     updateProject({
@@ -41,6 +47,7 @@ export const NewProjectScreen = () => {
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Project descripion</Form.Label>
                             <Form.Control type="email" placeholder="Description" size="lg"
+                              required
                                 value={project.description}
                                 onChange={(event) => {
                                     updateProject({
@@ -75,11 +82,17 @@ export const NewProjectScreen = () => {
                         <Form.Group className="mb-3">
                             <Form.Label>Package</Form.Label>
                             <Form.Control type="file" size="lg"
-                            accept=".zip,.rar,.7zip"
-                            id="file-holder"
-                            required
+                                accept=".zip,.rar,.7zip"
+                                id="file-holder"
+                                required
                                 onChange={(event) => {
-                                    const  filelist= window.document.getElementById("file-holder");
+                                    const filelist = window.document.getElementById("file-holder");
+                                    // @ts-ignore
+                                    if(filelist.files[0].size > 4194304){
+                                        alert("File should be below 4MB");
+                                        return;
+                                     };
+
                                     // @ts-ignore
                                     updateFile(filelist.files[0])
                                 }} />
@@ -89,21 +102,32 @@ export const NewProjectScreen = () => {
                         </Form.Group>
 
                         <Button className="btn-lg w-100" onClick={async () => {
-                            if(file==null){
+                             if(project.title== undefined || project.description== undefined){
+                                toast("Provide all required filled");
+                                 return;
+                             }
+
+
+                            if (file == null || file== undefined) {
                                 toast("Select project package");
                                 return;
                             }
 
                             toast("Uploading package....");
-                            let link=await  uploadFile(file);
-                            updateProject({
-                                ...project, 
-                                resource_url: link
-                            })
-                            add(project).then(v => {
-                                history.push("/projects/" + v?.id);
-                            });
+                            UploadToCloudinary(file).then(link => {
+                                console.log(link);
 
+                                if(link==undefined){
+                                    return 
+                                }
+                                updateProject({
+                                    ...project,
+                                    resource_url: link
+                                })
+                                add(project).then(v => {
+                                    history.push("/projects/" + v?.id);
+                                });
+                            });
                         }}>Submit </Button>
                     </Col>
                 </Row>

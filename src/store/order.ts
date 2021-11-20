@@ -16,7 +16,7 @@ export class _Manager {
     load = () => {
        CUSTOM_API.userAPI?.getUserSales().then(data => {
             runInAction(() => {
-                this. mytransactions = data.data;
+                this.mytransactions = data.data;
                 console.log(data.data);
             })
         })

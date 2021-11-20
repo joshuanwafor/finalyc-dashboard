@@ -34,7 +34,7 @@ export const ProjectsComp: React.FC = observer(() => {
                                     }</div>
                                 </Col>
                                 <Col sm={{ span: "12" }} md={{ span: "4" }} className="d-flex justify-content-end" >
-                                    <Button variant="secondary" size={"sm"}>Share</Button>
+                                   
                                 </Col>
                             </Row>
                         </Link>

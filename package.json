@@ -16,6 +16,7 @@
     "@react-firebase/auth": "^0.2.10",
     "@types/firebase": "^3.2.1",
     "@types/react-dom": "^17.0.10",
+    "@uploadcare/upload-client": "^2.0.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "axios": "^0.24.0",
     "bootstrap": "5.1.3",
