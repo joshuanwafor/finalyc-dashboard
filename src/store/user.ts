@@ -21,17 +21,6 @@ class UserManager {
         makeAutoObservable(this);
     }
 
-    // load = async () => {
-    //     if (localStorage.getItem("fyc-app-auth-token") != null) {
-    //         this.loadToken(localStorage.getItem("fyc-app-auth-token") ?? "");
-    //         return
-    //     }
-    //     // allow signin
-    //     runInAction(() => {
-    //         this.canSignin = true;
-    //     })
-    // }
-
     loadToken(token: string) {
         setUserAuthToken(token);
         this.loadUserProfile();
@@ -73,6 +62,7 @@ class UserManager {
             let res = await defaultUser.getUserAuthToken({ token: idToken })
             // retrieve auth token from backend
             if (res.status == 200 && res.data.token != undefined) {
+                console.log(res.data.token, "token goes here ohh")
                 this.loadToken(res.data.token);
                 console.log("token goes here-", idToken)
             }
