@@ -6,7 +6,8 @@ let config: { isJsonMime: () => boolean, basePath?: string } = { isJsonMime: () 
 if (process.env.NODE_ENV == "production") {
     config.basePath = "https://finalyc.herokuapp.com/rest";
 }
-console.log(config, "== using this config")
+
+
 export let CUSTOM_API: {
     projectAPI?: ProjectApi
     defaultAPI?: DefaultApi,
@@ -23,8 +24,6 @@ export let AppUserAPI: UserApi = new UserApi(config);
 
 
 export function setUserAuthToken(token: string) {
-
-    let config: { "apiKey": string, isJsonMime: () => boolean, basePath?: string } = { apiKey: token, isJsonMime: () => true };
 
 
     CUSTOM_API.defaultAPI = new DefaultApi(config);
