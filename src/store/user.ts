@@ -58,7 +58,8 @@ class UserManager {
                 return;
             }
             // get id token to retrieve new token from backend
-            let idToken = await user.getIdToken();
+            let idToken = await user.getIdToken(true);
+              
             let res = await defaultUser.getUserAuthToken({ token: idToken })
             // retrieve auth token from backend
             if (res.status == 200 && res.data.token != undefined) {

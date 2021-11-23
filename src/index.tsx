@@ -13,15 +13,16 @@ export const firebaseConfig = {
 
   projectId: "finally-xyz",
 
-  storageBucket: "gs://finally-xyz.appspot.com",
+  storageBucket: "finally-xyz.appspot.com",
 
   messagingSenderId: "153597144819",
 
   appId: "1:153597144819:web:11a9c6faf4152658219186",
 
-  measurementId: "G-XP2YB8X11M",
+  measurementId: "G-XP2YB8X11M"
 
 };
+
 
 
 
