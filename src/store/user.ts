@@ -33,10 +33,10 @@ class UserManager {
     loadUserProfile = async () => {
         console.log("loading profile...");
         try {
-            let user = await AppUserAPI.getUser();
+            let user = await CUSTOM_API.userAPI?.getUser();
             console.log(user, " goes here");
             runInAction(() => {
-                this.user = user.data;
+                this.user = user?.data;
             })
         } catch (e) {
             console.log("---error occured in loading user")
