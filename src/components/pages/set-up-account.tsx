@@ -34,11 +34,12 @@ export const SetupAccount: React.FC<{}> = () => {
             setBanks(v.data);
         })
 
-    }, [])
-    return <div>
-        <h2>Settup payment account</h2>
+    }, []);
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+    
+    return <div>
+        <h3>Setup payment account</h3>
+        <Form.Group className="my-4" controlId="formBasicEmail">
             <Form.Label>Business name</Form.Label>
             <Form.Control type="text" placeholder="" value={businessName}
                 onChange={(ev) => {
@@ -47,16 +48,19 @@ export const SetupAccount: React.FC<{}> = () => {
             />
         </Form.Group>
 
-        <Form.Select aria-label="Default select example" value={settlementBank} onChange={(e)=>{
-            setSettlementBank(e.target.value);
-        }}>
-            <option>Bank</option>
-            {banks.map(v => {
-                return <option value={v.code}>{v.name}</option>;
-            })}
-        </Form.Select>
+        <Form.Group>
+            <Form.Label>Bank</Form.Label>
+            <Form.Select aria-label="Default select example" value={settlementBank} onChange={(e) => {
+                setSettlementBank(e.target.value);
+            }}>
+                <option>Bank</option>
+                {banks.map(v => {
+                    return <option value={v.code}>{v.name}</option>;
+                })}
+            </Form.Select>
+        </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="my-4" controlId="formBasicEmail">
             <Form.Label>Account number</Form.Label>
             <Form.Control type="text" placeholder="" value={accountNum}
                 onChange={(ev) => {
@@ -64,12 +68,12 @@ export const SetupAccount: React.FC<{}> = () => {
                 }} />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="my-4" controlId="formBasicEmail">
             <Form.Label>Primary email</Form.Label>
             <Form.Control type="text" placeholder="" value={userStore.user?.email} disabled />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="my-4" controlId="formBasicEmail">
             <Form.Label>Primary phone</Form.Label>
             <Form.Control type="text" placeholder="" value={phone} onChange={(ev) => {
                 setPhone(ev.target.value)

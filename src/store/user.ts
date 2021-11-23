@@ -92,7 +92,7 @@ class UserManager {
 
         localStorage.clear();
         
-        let response = await signInWithEmailAndPassword(getAuth(), email, password).then(v => {
+        signInWithEmailAndPassword(getAuth(), email, password).then(v => {
             this.checkSignedInUser();
         }).catch(v => {
             toast(v.message, {});

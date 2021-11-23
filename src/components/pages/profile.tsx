@@ -77,10 +77,7 @@ export const ProfileScreen = observer(() => {
                             <div>Bank Info</div>
                         </Card.Header>
                         <Card.Body>
-                            {paystack_bank_integration == undefined ?? <SetupAccount />}
-
-
-                            {paystack_bank_integration == undefined ? <div>Something went wrong</div> : <div>
+                            {paystack_bank_integration == undefined ? <SetupAccount /> : <div>
                                 <div>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Bank name</Form.Label>
