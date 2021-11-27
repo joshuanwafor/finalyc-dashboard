@@ -4,7 +4,7 @@ import { User, UserApi } from "../api/api"
 import firebase from "firebase/app"
 import { signInWithEmailAndPassword, getAuth, User as FirebaseUser } from "firebase/auth"
 import { createContext, useContext } from "react";
-import { AppUserAPI, CUSTOM_API, setUserAuthToken, } from "../configure/global_variables";
+import {  CUSTOM_API, setUserAuthToken, } from "../configure/global_variables";
 import toast, { Toaster } from 'react-hot-toast';
 
 
@@ -58,14 +58,15 @@ class UserManager {
             }
             // get id token to retrieve new token from backend
             let idToken = await user.getIdToken(true);
-            let res = await defaultUser.getUserAuthToken({ token: idToken })
+            let res = await defaultUser.getUserAuthToken({ token: idToken });
+            
             // retrieve auth token from backend
             if (res.status == 200 && res.data.token != undefined) {
                 console.dir(res.data.token, "token goes here ohh")
                 this.loadToken(res.data.token);
             }
         } catch (e: any) {
-            console.log(e.message);
+            console.log(e);
         }
     }
 

@@ -1,7 +1,7 @@
 import { makeAutoObservable, observable, runInAction } from "mobx";
 import { createContext, useContext } from "react";
 import { Project } from "../api";
-import { AppProjectApi, AppDefaultAPI,CUSTOM_API } from "../configure/global_variables";
+import { CUSTOM_API } from "../configure/global_variables";
 
 
 
@@ -15,7 +15,7 @@ export class TaxonomyManager {
     }
 
     load = () => {
-        AppDefaultAPI.getTaxonomies().then(data => {
+        CUSTOM_API.defaultAPI?.getTaxonomies().then(data => {
             runInAction(() => {
                 this.taxonomies = data.data;
                 console.log(data.data);

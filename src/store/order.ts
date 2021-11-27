@@ -1,7 +1,7 @@
 import { makeAutoObservable, observable, runInAction } from "mobx";
 import { createContext, useContext } from "react";
 import { Project,Order } from "../api";
-import { AppProjectApi, AppDefaultAPI, CUSTOM_API,  } from "../configure/global_variables";
+import { CUSTOM_API,  } from "../configure/global_variables";
 
 
 export class _Manager {
