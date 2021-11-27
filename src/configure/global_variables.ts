@@ -1,10 +1,12 @@
 import { ProjectApi, UserApi, DefaultApi, } from "../api/api"
 
 
-let config: { isJsonMime: () => boolean, basePath?: string, "apiKey"?: string,  } = { isJsonMime: () => true,basePath:process.env.server??"http://localhost:8000/rest" };
+let config: { isJsonMime: () => boolean, basePath?: string, "apiKey"?: string, } = { isJsonMime: () => true,
+     basePath: process.env.NODE_ENV == "production" ? "https://mypapers.herokuapp.com/rest" : "http://localhost:8000/rest" };
 
 
-console.log(config, "api config")
+console.log(config, "api config");
+
 export let CUSTOM_API: {
     projectAPI?: ProjectApi
     defaultAPI?: DefaultApi,
@@ -14,7 +16,7 @@ export let CUSTOM_API: {
 
 
 export function setUserAuthToken(token: string) {
-    config.apiKey= token;
+    config.apiKey = token;
 
     CUSTOM_API.defaultAPI = new DefaultApi(config);
     CUSTOM_API.projectAPI = new ProjectApi(config)
