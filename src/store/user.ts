@@ -45,12 +45,11 @@ class UserManager {
     }
 
     checkSignedInUser = async () => {
-        console.log("before checking user")
-        try {
-            let myAuth = getAuth();
-            let user = myAuth.currentUser;
+        let myAuth = getAuth();
+        let user = myAuth.currentUser;
+        console.log(user, "-- current");
 
-            console.log(user, "-- current");
+        try {
             if (user == null) {
                 runInAction(() => {
                     this.canSignin = true;
@@ -59,13 +58,11 @@ class UserManager {
             }
             // get id token to retrieve new token from backend
             let idToken = await user.getIdToken(true);
-              
             let res = await defaultUser.getUserAuthToken({ token: idToken })
             // retrieve auth token from backend
             if (res.status == 200 && res.data.token != undefined) {
-                console.log(res.data.token, "token goes here ohh")
+                console.dir(res.data.token, "token goes here ohh")
                 this.loadToken(res.data.token);
-                console.log("token goes here-", idToken)
             }
         } catch (e: any) {
             console.log(e.message);
@@ -98,7 +95,6 @@ class UserManager {
         }).catch(v => {
             toast(v.message, {});
         });
-
     }
 
 }
