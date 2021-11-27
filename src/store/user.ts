@@ -47,8 +47,7 @@ class UserManager {
     checkSignedInUser = async () => {
         let myAuth = getAuth();
         let user = myAuth.currentUser;
-        console.log(user, "-- current");
-
+    
         try {
             if (user == null) {
                 runInAction(() => {
@@ -58,6 +57,8 @@ class UserManager {
             }
             // get id token to retrieve new token from backend
             let idToken = await user.getIdToken(true);
+            console.table(idToken);
+            console.log("my logintoke")
             let res = await defaultUser.getUserAuthToken({ token: idToken });
             
             // retrieve auth token from backend
