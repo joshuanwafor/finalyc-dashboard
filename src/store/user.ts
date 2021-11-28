@@ -4,8 +4,10 @@ import { User, UserApi } from "../api/api"
 import firebase from "firebase/app"
 import { signInWithEmailAndPassword, getAuth, User as FirebaseUser } from "firebase/auth"
 import { createContext, useContext } from "react";
-import {  CUSTOM_API, setUserAuthToken, } from "../configure/global_variables";
+import { CUSTOM_API, setUserAuthToken, } from "../configure/global_variables";
 import toast, { Toaster } from 'react-hot-toast';
+
+const host = process.env.NODE_ENV == "production" ? "https://mypapers.herokuapp.com/rest" : "http://localhost:8000/rest";
 
 
 const defaultUser = new UserApi();
@@ -47,7 +49,7 @@ class UserManager {
     checkSignedInUser = async () => {
         let myAuth = getAuth();
         let user = myAuth.currentUser;
-    
+
         try {
             if (user == null) {
                 runInAction(() => {
@@ -59,12 +61,12 @@ class UserManager {
             let idToken = await user.getIdToken(true);
             console.table(idToken);
             console.log("my logintoke")
-            let res = await defaultUser.getUserAuthToken({ token: idToken });
-            
+            let res = await fetchAuthUser(idToken);
+
             // retrieve auth token from backend
-            if (res.status == 200 && res.data.token != undefined) {
-                console.dir(res.data.token, "token goes here ohh")
-                this.loadToken(res.data.token);
+            if (res!= undefined) {
+                console.dir(res, "token goes here ohh")
+               this.loadToken(res.token);
             }
         } catch (e: any) {
             console.log(e);
@@ -91,7 +93,7 @@ class UserManager {
     siginInWithGoogle = async (email: string, password: string) => {
 
         localStorage.clear();
-        
+
         signInWithEmailAndPassword(getAuth(), email, password).then(v => {
             this.checkSignedInUser();
         }).catch(v => {
@@ -110,3 +112,22 @@ export const UserContext = createContext<UserManager>(
 export const useUserStore = (): UserManager => {
     return useContext<UserManager>(UserContext);
 };
+
+
+async function fetchAuthUser(token: string) {
+    try {
+        let res = await fetch(host + "/user/auth", {
+            method: "post",
+            body: JSON.stringify({ token: token }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+        });
+
+        console.log(res);
+        return await res.json()
+    } catch (e) {
+        throw e;
+    }
+}
