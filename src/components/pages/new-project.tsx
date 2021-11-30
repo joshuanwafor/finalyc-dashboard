@@ -29,7 +29,7 @@ export const NewProjectScreen = () => {
                         <h2 className="mb-2">Basic info</h2>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Project title</Form.Label>
-                            <Form.Control type="email" placeholder="Title" size="lg"
+                            <Form.Control type="text" as="textarea" placeholder="Title" size="lg"
                             required
                                 value={project.title}
                                 onChange={(event) => {
@@ -39,14 +39,11 @@ export const NewProjectScreen = () => {
                                     })
                                 }}
                             />
-                            <Form.Text className="text-muted" >
-                                Project title
-                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Project descripion</Form.Label>
-                            <Form.Control type="email" placeholder="Description" size="lg"
+                            <Form.Control type="text" as="textarea" placeholder="Description" size="lg"
                               required
                                 value={project.description}
                                 onChange={(event) => {
@@ -55,9 +52,6 @@ export const NewProjectScreen = () => {
                                         description: event.target.value
                                     })
                                 }} />
-                            <Form.Text className="text-muted">
-                                Project description
-                            </Form.Text>
                         </Form.Group>
 
                         <h2 className="mt-2">Classification</h2>

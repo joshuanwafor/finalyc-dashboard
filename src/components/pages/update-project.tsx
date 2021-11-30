@@ -32,7 +32,7 @@ export const UpdateProjectScreen = observer(() => {
     });
 
     let taxonomiesValue = taxonomiesOptions.filter(v => {
-        let index = project.categories?.slice()?.findIndex((d=>d== v.value));
+        let index = project.categories?.slice()?.findIndex((d => d == v.value));
         if (index == -1) {
             return false;
         } else {
@@ -86,9 +86,9 @@ export const UpdateProjectScreen = observer(() => {
                                 }}
                             >
                                 <option>Institution type</option>
-                                <option value="HND">HND</option>
-                                <option value="BSC">BSC</option>
-                                <option value="MSC">MSC</option>
+                                <option value="hnd">HND</option>
+                                <option value="bsc">BSC</option>
+                                <option value="msc">MSC</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Label>Categories</Form.Label>
@@ -105,18 +105,8 @@ export const UpdateProjectScreen = observer(() => {
                 </Accordion.Item>
 
                 <Accordion.Item eventKey="2">
-                    <Accordion.Header>Project work</Accordion.Header>
+                    <Accordion.Header>Project Settings</Accordion.Header>
                     <Accordion.Body>
-                        <div className={"p-3 px-1"}>
-                            <h6>Project Body</h6>
-                            <Editor defaultValue={project.body} onChange={(valG) => {
-                                let value = valG();
-                                project.body = value;
-                            }} />
-
-                        </div>
-
-
                         <Row>
                             <Form.Group className="mb-3" as={Col}>
                                 <Form.Label>Status</Form.Label>
@@ -188,8 +178,22 @@ export const UpdateProjectScreen = observer(() => {
                                     project.price = parseFloat(e.target.value)
                                 }}
                             />
-                    
+
                         </Form.Group>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3">
+                    <Accordion.Header>
+                        Project Summary/ About project
+                    </Accordion.Header>
+                    <Accordion.Body>
+                        <div className={"p-3 px-1"}>
+                            <h6>Project Body</h6>
+                            <Editor defaultValue={project.body} onChange={(valG) => {
+                                let value = valG();
+                                project.body = value;
+                            }} />
+                        </div>
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
