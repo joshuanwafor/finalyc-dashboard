@@ -49,14 +49,12 @@ export const UpdateProjectScreen = observer(() => {
                     <Accordion.Body>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Project title</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email"
+                            <Form.Control type="text" 
                                 value={project?.title}
                                 onChange={(e) => {
                                     project.title = e.target.value
                                 }} />
-                            <Form.Text className="text-muted" >
-
-                            </Form.Text>
+                        
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -67,9 +65,7 @@ export const UpdateProjectScreen = observer(() => {
                                 onChange={(e) => {
                                     project.description = e.target.value
                                 }} />
-                            <Form.Text className="text-muted">
-
-                            </Form.Text>
+                        
                         </Form.Group>
                     </Accordion.Body>
                 </Accordion.Item>
@@ -199,15 +195,13 @@ export const UpdateProjectScreen = observer(() => {
             </Accordion>
 
 
-            <Form>
-                <Row>
-                    <Col>
-                        <Button className="btn-lg w-100 w-md-50 my-3" onClick={() => {
-                            update({ ...project })
-                        }}>Submit </Button>
-                    </Col>
-                </Row>
-            </Form>
+            <Row>
+                <Col>
+                    <Button className="btn-lg w-100 w-md-50 my-3" onClick={() => {
+                        update({ ...project })
+                    }}>Submit </Button>
+                </Col>
+            </Row>
         </div>
     </Container>
 })

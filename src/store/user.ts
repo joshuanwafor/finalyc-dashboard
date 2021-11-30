@@ -64,9 +64,9 @@ class UserManager {
             let res = await fetchAuthUser(idToken);
 
             // retrieve auth token from backend
-            if (res!= undefined) {
+            if (res != undefined) {
                 console.dir(res, "token goes here ohh")
-               this.loadToken(res.token);
+                this.loadToken(res.token);
             }
         } catch (e: any) {
             console.log(e);
@@ -87,7 +87,9 @@ class UserManager {
             bio: this.user?.bio,
             phone: this.user?.phone
         }
-        CUSTOM_API.userAPI?.updateUser(updateOb).then(v => { })
+        CUSTOM_API.userAPI?.updateUser(updateOb).then(v => { }).then(v => {
+            toast("Updated account successfully")
+        })
     }
 
     siginInWithGoogle = async (email: string, password: string) => {
@@ -122,7 +124,7 @@ async function fetchAuthUser(token: string) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-              },
+            },
         });
 
         console.log(res);
