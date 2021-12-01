@@ -11,7 +11,6 @@ import { UploadToCloudinary } from "../../services/cloudinary"
 
 const uc_pk = "a9fd7aeb96141970bc09";
 
-
 export const NewProjectScreen = () => {
     let [file, updateFile] = React.useState<File | null>(null)
 
@@ -19,7 +18,6 @@ export const NewProjectScreen = () => {
 
     let history = useHistory()
     let [project, updateProject] = React.useState<Project>({});
-
 
     return <ListAreaTemplate title="New project" actions={<div><Button>Submit</Button></div>}>
         <div className="p-3">
@@ -30,7 +28,7 @@ export const NewProjectScreen = () => {
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Project title</Form.Label>
                             <Form.Control type="text" as="textarea" placeholder="Title" size="lg"
-                            required
+                                required
                                 value={project.title}
                                 onChange={(event) => {
                                     updateProject({
@@ -44,7 +42,7 @@ export const NewProjectScreen = () => {
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Project descripion</Form.Label>
                             <Form.Control type="text" as="textarea" placeholder="Description" size="lg"
-                              required
+                                required
                                 value={project.description}
                                 onChange={(event) => {
                                     updateProject({
@@ -82,10 +80,10 @@ export const NewProjectScreen = () => {
                                 onChange={(event) => {
                                     const filelist = window.document.getElementById("file-holder");
                                     // @ts-ignore
-                                    if(filelist.files[0].size > 4194304){
+                                    if (filelist.files[0].size > 4194304) {
                                         alert("File should be below 4MB");
                                         return;
-                                     };
+                                    };
 
                                     // @ts-ignore
                                     updateFile(filelist.files[0])
@@ -96,13 +94,13 @@ export const NewProjectScreen = () => {
                         </Form.Group>
 
                         <Button className="btn-lg w-100" onClick={async () => {
-                             if(project.title== undefined || project.description== undefined){
+                            if (project.title == undefined || project.description == undefined) {
                                 toast("Provide all required filled");
-                                 return;
-                             }
+                                return;
+                            }
 
 
-                            if (file == null || file== undefined) {
+                            if (file == null || file == undefined) {
                                 toast("Select project package");
                                 return;
                             }
@@ -111,14 +109,18 @@ export const NewProjectScreen = () => {
                             UploadToCloudinary(file).then(link => {
                                 console.log(link);
 
-                                if(link==undefined){
-                                    return 
+                                if (link == undefined) {
+                                    return
                                 }
                                 updateProject({
                                     ...project,
                                     resource_url: link
                                 })
-                                add(project).then(v => {
+                                project.resource_url=link;
+                                add({
+                                    ...project,
+                                    resource_url: link
+                                }).then(v => {
                                     history.push("/projects/" + v?.id);
                                 });
                             });
