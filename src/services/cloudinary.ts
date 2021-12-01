@@ -21,7 +21,7 @@ export async function UploadToCloudinary(
   formData.append("file", file);
   formData.append("api_key", API_KEY);
   formData.append("timestamp", `${timeStamp}`);
-  formData.append("public_id", `zip-${timeStamp}`);
+  formData.append("public_id", `file-${file.name}-${timeStamp}`);
   formData.append("upload_preset", "zip-upload");
 
   let response = await fetch(UPLOAD_IMAGE_URL, {
