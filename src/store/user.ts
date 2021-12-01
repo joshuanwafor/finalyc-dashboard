@@ -2,7 +2,7 @@
 import { action, makeAutoObservable, makeObservable, observable, runInAction } from "mobx"
 import { User, UserApi } from "../api/api"
 import firebase from "firebase/app"
-import { signInWithEmailAndPassword, getAuth, User as FirebaseUser } from "firebase/auth"
+import { signInWithEmailAndPassword, getAuth, User as FirebaseUser, createUserWithEmailAndPassword } from "firebase/auth"
 import { createContext, useContext } from "react";
 import { CUSTOM_API, setUserAuthToken, } from "../configure/global_variables";
 import toast, { Toaster } from 'react-hot-toast';
@@ -92,6 +92,17 @@ class UserManager {
         })
     }
 
+
+    siginUpWithGoogle = async (email: string, password: string) => {
+        localStorage.clear();
+
+        createUserWithEmailAndPassword(getAuth(), email, password).then(v => {
+            this.checkSignedInUser();
+        }).catch(v => {
+            toast(v.message, {});
+        });
+    }
+
     siginInWithGoogle = async (email: string, password: string) => {
 
         localStorage.clear();
@@ -126,7 +137,6 @@ async function fetchAuthUser(token: string) {
                 'Content-Type': 'application/json'
             },
         });
-
         console.log(res);
         return await res.json()
     } catch (e) {

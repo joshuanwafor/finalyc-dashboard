@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import React from "react";
-import { Alert, Button, Card, Col, Container, Form, Nav, Navbar, NavDropdown, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Container, Form, Nav, Navbar, Tab, TabContainer, Row } from "react-bootstrap";
 import { useUserStore } from "../store/user";
 
 
@@ -23,52 +23,121 @@ export const AuthScreen: React.FC<{}> = observer(() => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+
+
         <Container>
-            <Row className="justify-content-center">
-                <Col md={{ span: "5" }}>
-                    <Card>
-                        <Card.Header>
-                            <Card.Title>Signin</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <div>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email"
-                                        value={email}
-                                        onChange={(target) => {
-                                            setEmail(target.target.value)
-                                        }} />
-                                    <Form.Text className="text-muted">
-                                        We'll never share your email with anyone else.
-                                    </Form.Text>
-                                </Form.Group>
+            <div>
+                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                    <Row className="justify-content-center mb-3">
+                        <Col md={{ span: "5" }}>
+                            <Nav variant="pills" className="justify-content-cnter">
+                                <Nav.Item>
+                                    <Nav.Link eventKey="first">Signin</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="second">Create Account</Nav.Link>
+                                </Nav.Item>
+                            </Nav>
+                        </Col>
+                    </Row>
+                    <Tab.Content>
+                        <Tab.Pane eventKey="first">
+                            <Row className="justify-content-center">
+                                <Col md={{ span: "5" }}>
+                                    <Card>
+                                        <Card.Header>
+                                            <Card.Title>Login</Card.Title>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <div>
+                                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Email address</Form.Label>
+                                                    <Form.Control type="email" placeholder="Enter email"
+                                                        value={email}
+                                                        onChange={(target) => {
+                                                            setEmail(target.target.value)
+                                                        }} />
+                                                    <Form.Text className="text-muted">
+                                                        We'll never share your email with anyone else.
+                                                    </Form.Text>
+                                                </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password"
-                                        value={password}
-                                        onChange={(target) => {
-                                            setPassword(target.target.value)
-                                        }} />
-                                </Form.Group>
-                                <Button variant="primary" type="submit" className="w-100" onClick={() => {
-                                    siginInWithGoogle(email, password);
-                                }}>
-                                    Submit
-                                </Button>
-                            </div>
-                        </Card.Body>
-                    </Card>
+                                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                                    <Form.Label>Password</Form.Label>
+                                                    <Form.Control type="password" placeholder="Password"
+                                                        value={password}
+                                                        onChange={(target) => {
+                                                            setPassword(target.target.value)
+                                                        }} />
+                                                </Form.Group>
+                                                <Button variant="primary" type="submit" className="w-100" onClick={() => {
+                                                    siginInWithGoogle(email, password);
+                                                }}>
+                                                    Submit
+                                                </Button>
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="second">
+                            <SignUp />
+                        </Tab.Pane>
+                    </Tab.Content>
+                </Tab.Container>
+            </div>
 
 
-                    <Alert className="mt-3">
-                        Don't have an account!!! No worries. Lets setup an account for you.{" "}
-                        <Alert.Link href="https://wa.me/2349017283616?text= Hello Joshua, i'll love to register on mypapers.shop as a partner... ">Connect</Alert.Link>
-                    </Alert>
-
-                </Col>
-            </Row>
         </Container>
     </div>
 });
+
+
+function SignUp() {
+    let [email, setEmail] = React.useState("");
+    let [password, setPassword] = React.useState("");
+    let { siginUpWithGoogle } = useUserStore();
+
+    return <div>
+        <Row className="justify-content-center">
+            <Col md={{ span: "5" }}>
+                <Card>
+                    <Card.Header>
+                        <Card.Title>Register</Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                        <div>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email"
+                                    value={email}
+                                    onChange={(target) => {
+                                        setEmail(target.target.value)
+                                    }} />
+                                <Form.Text className="text-muted">
+                                    We'll never share your email with anyone else.
+                                </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password"
+                                    value={password}
+                                    onChange={(target) => {
+                                        setPassword(target.target.value)
+                                    }} />
+                            </Form.Group>
+                            <Button variant="primary" type="submit" className="w-100" onClick={() => {
+                                siginUpWithGoogle(email, password);
+                            }}>
+                                Submit
+                            </Button>
+                        </div>
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Row>
+    </div>
+
+}
