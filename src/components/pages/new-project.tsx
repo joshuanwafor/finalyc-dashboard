@@ -74,23 +74,20 @@ export const NewProjectScreen = () => {
                         <Form.Group className="mb-3">
                             <Form.Label>Package</Form.Label>
                             <Form.Control type="file" size="lg"
-                                accept=".zip,.rar,.7zip"
+                                accept=".zip,.rar,.7zip,.docx,.doc,.pdf "
                                 id="file-holder"
                                 required
                                 onChange={(event) => {
                                     const filelist = window.document.getElementById("file-holder");
                                     // @ts-ignore
-                                    if (filelist.files[0].size > 4194304) {
-                                        alert("File should be below 4MB");
+                                    if (filelist.files[0].size > 5194304) {
+                                        alert("File should be below 5MB");
                                         return;
                                     };
 
                                     // @ts-ignore
                                     updateFile(filelist.files[0])
                                 }} />
-                            <Form.Text className="text-muted">
-                                Project description
-                            </Form.Text>
                         </Form.Group>
 
                         <Button className="btn-lg w-100" onClick={async () => {
