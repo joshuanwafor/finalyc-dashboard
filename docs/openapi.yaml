@@ -101,7 +101,7 @@ paths:
                 account_number:
                   type: string
                 percentage_charge:
-                  type: string
+                  type: number
                 primary_contact_email:
                   type: string
                 primary_contact_name:
@@ -275,6 +275,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Project'
+    delete:
+      summary: Delete Project By ID
+      operationId: delete-project
+      responses:
+        '200':
+          description: OK
+      description: Deletes a project
   /transaction/initialize:
     get:
       summary: Your GET endpoint
@@ -448,6 +455,12 @@ components:
         price:
           type: number
         audience_type:
+          type: string
+        review_status:
+          type: string
+        is_approved:
+          type: boolean
+        '':
           type: string
     Order:
       title: Order

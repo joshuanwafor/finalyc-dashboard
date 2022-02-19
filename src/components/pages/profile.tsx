@@ -15,7 +15,7 @@ export const ProfileScreen = observer(() => {
     return <div className="p-0">
         <Container>
             <Row className="jusity-content-center">
-                <Col xs={{ span: "12" }} md={{ span: "8" }} className="mt-2">
+                <Col xs={{ span: "12" }} md={{ span: "6" }}>
                     <Card>
                         <Card.Header>
                             <div>User Info</div>
@@ -71,7 +71,7 @@ export const ProfileScreen = observer(() => {
                     </Card>
                 </Col>
 
-                <Col xs={{ span: "12" }} md={{ span: "8" }} className="mt-4">
+                <Col xs={{ span: "12" }} md={{ span: "6" }}>
                     <Card>
                         <Card.Header>
                             <div>Bank Info</div>

@@ -47,7 +47,7 @@ export interface InlineObject {
     'account_number'?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof InlineObject
      */
     'percentage_charge'?: number;
@@ -369,6 +369,24 @@ export interface Project {
      * @memberof Project
      */
     'audience_type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    'review_status'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Project
+     */
+    'is_approved'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    ''?: string;
 }
 /**
  * 
@@ -554,6 +572,43 @@ export interface UserPaystackBankIntegration {
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Deletes a project
+         * @summary Delete Project By ID
+         * @param {string} project 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProject: async (project: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'project' is not null or undefined
+            assertParamExists('deleteProject', 'project', project)
+            const localVarPath = `/projects/{project}`
+                .replace(`{${"project"}}`, encodeURIComponent(String(project)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication ApiKeyAuth required
+            await setApiKeyToObject(localVarHeaderParameter, "authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
          * @summary Get taxonomies
          * @param {*} [options] Override http request option.
@@ -630,6 +685,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
+         * Deletes a project
+         * @summary Delete Project By ID
+         * @param {string} project 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteProject(project: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProject(project, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * 
          * @summary Get taxonomies
          * @param {*} [options] Override http request option.
@@ -660,6 +726,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
+         * Deletes a project
+         * @summary Delete Project By ID
+         * @param {string} project 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProject(project: string, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteProject(project, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
          * @summary Get taxonomies
          * @param {*} [options] Override http request option.
@@ -687,6 +763,18 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class DefaultApi extends BaseAPI {
+    /**
+     * Deletes a project
+     * @summary Delete Project By ID
+     * @param {string} project 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteProject(project: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).deleteProject(project, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Get taxonomies
