@@ -6,14 +6,13 @@ import { ProjectsComp } from "../organisms/projects";
 
 export const ProjectsScreen = () => {
   return (
-    <div className="p-0" style={{minHeight:"70vh"}}>
+    <div className="p-0" style={{ minHeight: "70vh" }}>
       <Container>
         <Row className="jusity-content-center">
           <Col xs={{ span: "12" }} md={{ span: "12" }} className="mt-2 ">
             <div style={{ flex: 1 }}>
               <ProjectsComp />
             </div>
-          
           </Col>
         </Row>
       </Container>
