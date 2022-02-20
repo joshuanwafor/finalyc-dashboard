@@ -5,7 +5,11 @@ export function Header() {
   let linkStyle = { textDecoration: "none", color: "gray" };
 
   return (
-    <Navbar expand="lg" className=" shadow shadow-sm bg-dark navbar-dark" fixed={"top"}>
+    <Navbar
+      expand="lg"
+      className=" shadow shadow-sm bg-dark navbar-dark"
+      fixed={"top"}
+    >
       <Container>
         <Navbar.Brand className="fw-bold" href="/">
           <img
@@ -16,7 +20,7 @@ export function Header() {
         <Navbar.Toggle
           aria-controls="navbarScroll"
           className="shadow-none border-0 text-light"
-          style={{color:"white"}}
+          style={{ color: "white" }}
         />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto  text-dark col-12 justify-content-end align-items-center">

@@ -3,17 +3,17 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://firebasestorage.googleapis.com/v0/b/ujaymobile-01.appspot.com/o/logo.jpg?alt=media&token=3f2ef6f4-5221-4a3e-8160-d18d5c48b2c4",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "https://firebasestorage.googleapis.com/v0/b/ujaymobile-01.appspot.com/o/logo.jpg?alt=media&token=3f2ef6f4-5221-4a3e-8160-d18d5c48b2c4",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "https://firebasestorage.googleapis.com/v0/b/ujaymobile-01.appspot.com/o/logo.jpg?alt=media&token=3f2ef6f4-5221-4a3e-8160-d18d5c48b2c4",
       "type": "image/png",
       "sizes": "512x512"
     }
